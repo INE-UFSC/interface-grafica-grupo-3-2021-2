@@ -23,7 +23,7 @@ class ClienteController:
                 nome = str(values['nome'])
                 try:
                     codigo = int(values['codigo'])
-                    cliente = Cliente(nome, codigo)
+                    cliente = Cliente(codigo, nome)
                     self.__clientes[codigo] = cliente
                     resultado = 'Cliente cadastrado'
                 except:
