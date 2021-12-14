@@ -33,13 +33,20 @@ class ClienteController:
                 nome = str(values['nome'])
                 try:
                     codigo = int(values['codigo'])
-                    cliente_obj = self.busca_codigo(codigo)
-                    resultado = cliente_obj.__str__()
+                    try:
+                        cliente_obj = self.busca_codigo(codigo)
+                        resultado = cliente_obj.__str__()
+                    except KeyError:
+                        resultado = 'Não encontrado'
                 except:
                     resultado = 'Código deve ser um número inteiro'
                 
                 if nome != '':
-                    cliente_cod = self.busca_nome(nome)
+                    try:
+                        cliente_cod = self.busca_nome(nome)
+                        resultado = f'Nome: {nome}, Codigo: {cliente_cod}'
+                    except LookupError:
+                        resultado = 'Não encontrado'
 
             if resultado != '':
                 dados = str(resultado)
