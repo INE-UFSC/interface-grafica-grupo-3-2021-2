@@ -11,8 +11,8 @@ class ClienteView():
         #FIX ME - implementar a GUI e colocar em self.__container
         
         self.__container = [[sg.Text('Digite o nome ou o código do cliente e clique na ação desejada:')],
-                            [sg.Text('Nome:'), sg.InputText()],
-                            [sg.Text('Código:'), sg.InputText()],
+                            [sg.Text('Nome:'), sg.InputText(key='nome')],
+                            [sg.Text('Código:'), sg.InputText(key='codigo')],
                             [sg.Submit('Cadastrar'), sg.Submit('Consultar')],
                             [sg.Text('', key='console')]
                             ]
