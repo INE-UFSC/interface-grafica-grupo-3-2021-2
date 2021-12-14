@@ -22,11 +22,12 @@ class ClienteController:
             elif event == 'Cadastrar':
                 nome = str(values['nome'])
                 try:
-                    codigo = int(values['codigo'])
+                    codigo = int(values['codigo'].strip())
                     cliente = Cliente(codigo, nome)
                     self.__clientes[codigo] = cliente
                     resultado = 'Cliente cadastrado'
-                except:
+                except Exception as e:
+                    print(e)
                     resultado = 'Código deve ser um número inteiro'
                     
             elif event == 'Consultar':
@@ -70,3 +71,5 @@ class ClienteController:
                 return key
 
         raise LookupError
+    
+
