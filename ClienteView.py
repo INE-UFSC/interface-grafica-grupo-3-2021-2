@@ -14,7 +14,7 @@ class ClienteView():
                             [sg.Text('Nome:'), sg.InputText(key='nome')],
                             [sg.Text('Código:'), sg.InputText(key='codigo')],
                             [sg.Submit('Cadastrar'), sg.Submit('Consultar')],
-                            [sg.Text('', key='console')]
+                            [sg.Text('', key='resultado')]
                             ]
         self.__window = sg.Window("Consulta de clientes", self.__container ,font=("Helvetica", 14))
 
