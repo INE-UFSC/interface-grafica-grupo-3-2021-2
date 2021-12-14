@@ -2,6 +2,16 @@ from ClienteView import ClienteView
 from Cliente import Cliente
 import PySimpleGUI as sg 
 
+def Validacao():
+    nome = input('Digite o nome do cliente: ')
+                while True :
+                    codigo = int(input('Digite o código do cliente: '))
+                    try:
+                        codigo = int(codigo)
+                        break
+                    except:
+                        print('Codigo inválido!')
+    return nome, codigo                   
 class ClienteController:
     def __init__(self):
         self.__telaCliente = ClienteView(self)
@@ -19,12 +29,16 @@ class ClienteController:
             if event == sg.WIN_CLOSED:
                 rodando = False
             elif event == 'Cadastrar':
-                #FIX ME - implementar lógica de cadastro
-                pass
+                nome, codigo = Validacao()
+                        
+                cliente = Cliente(nome, codigo)
+                self.__clientes[codigo] = cliente
+                
             elif event == 'Consultar':
-                #FIX ME - implementar lógica de consulta
-                pass
-            
+                nome, codigo = Validacao()
+                cliente_cod = self.busca_codigo(codigo)
+                cliente_nom = self.busca_nome(nome)
+                if
             if resultado != '':
                 dados = str(resultado)
                 self.__telaCliente.mostra_resultado(dados)
