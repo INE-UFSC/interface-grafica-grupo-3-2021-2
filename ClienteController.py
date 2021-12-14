@@ -1,25 +1,16 @@
 from ClienteView import ClienteView
 from Cliente import Cliente
-import PySimpleGUI as sg 
+import PySimpleGUI as sg
 
-def Validacao():
-    nome = input('Digite o nome do cliente: ')
-                while True :
-                    codigo = int(input('Digite o código do cliente: '))
-                    try:
-                        codigo = int(codigo)
-                        break
-                    except:
-                        print('Codigo inválido!')
-    return nome, codigo                   
+
 class ClienteController:
     def __init__(self):
         self.__telaCliente = ClienteView(self)
-        self.__clientes = {} #lista de objetos Cliente
+        self.__clientes = {}  # lista de objetos Cliente
 
     def inicia(self):
         self.__telaCliente.tela_consulta()
-        
+
         # Loop de eventos
         rodando = True
         resultado = ''
@@ -29,22 +20,32 @@ class ClienteController:
             if event == sg.WIN_CLOSED:
                 rodando = False
             elif event == 'Cadastrar':
-                nome, codigo = Validacao()
-                        
-                cliente = Cliente(nome, codigo)
-                self.__clientes[codigo] = cliente
-                
+                nome = str(values['nome'])
+                try:
+                    codigo = int(values['codigo'])
+                    cliente = Cliente(nome, codigo)
+                    self.__clientes[codigo] = cliente
+                    resultado = 'Cliente cadastrado'
+                except:
+                    resultado = 'Código deve ser um número inteiro'
+                    
             elif event == 'Consultar':
-                nome, codigo = Validacao()
-                cliente_cod = self.busca_codigo(codigo)
-                cliente_nom = self.busca_nome(nome)
-                if
+                nome = str(values['nome'])
+                try:
+                    codigo = int(values['codigo'])
+                    cliente_obj = self.busca_codigo(codigo)
+                    resultado = cliente_obj.__str__()
+                except:
+                    resultado = 'Código deve ser um número inteiro'
+                
+                if nome != '':
+                    cliente_cod = self.busca_nome(nome)
+
             if resultado != '':
                 dados = str(resultado)
                 self.__telaCliente.mostra_resultado(dados)
 
         self.__telaCliente.fim()
-
 
     def busca_codigo(self, codigo):
         try:
@@ -55,10 +56,10 @@ class ClienteController:
     # cria novo OBJ cliente e adiciona ao dict
     def adiciona_cliente(self, codigo, nome):
         self.__clientes[codigo] = Cliente(codigo, nome)
-    
+
     def busca_nome(self, nome):
         for key, val in self.__clientes.items():
             if val.nome == nome:
-                return key 
+                return key
 
         raise LookupError
